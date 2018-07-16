@@ -3,6 +3,14 @@ import { Route, BrowserRouter, Redirect, Switch } from 'react-router-dom';
 
 import './App.css';
 
+import Home from '../components/Home/Home';
+import Navbar from '../components/Navbar/Navbar';
+import Login from '../components/Login/Login';
+import Register from '../components/Register/Register';
+import Profile from '../components/Profile/Profile';
+// import Children from '../components/Children/Children';
+import Records from '../components/Records/Records';
+
 const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   return (
     <Route
@@ -13,8 +21,7 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
         ) : (
           <Redirect
             to={{ pathname: '/login', state: {
-              from: props.location
-            } }}
+              from: props.location } }}
           />
         )
       }
@@ -22,12 +29,23 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   );
 };
 
-import Home from '../components/Home/Home';
-// import Login from '../components/Login/Login';
-// import Register from '../components/Register/Register';
-import Parent from '../components/Parent/Parent';
-// import Children from '../components/Children/Children';
-// import Records from '../components/Records/Records'
+const PublicRoute = ({ component: Component, authed, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        authed === false ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: '/home', state: {
+              from: props.location } }}
+          />
+        )
+      }
+    />
+  );
+};
 
 class App extends Component {
   state = {
@@ -46,7 +64,19 @@ class App extends Component {
                   <PrivateRoute
                     path="/profile"
                     authed={this.state.authed}
-                    component={Parent} />
+                    component={Profile} />
+                  <PublicRoute
+                    path="/register"
+                    authed={this.state.authed}
+                    component={Register} />
+                  <PublicRoute
+                    path="/login"
+                    authed={this.state.authed}
+                    component={Login} />
+                  <PrivateRoute
+                    path="/records"
+                    authed={this.state.authed}
+                    component={Records} />
                 </Switch>
               </div>
             </div>
