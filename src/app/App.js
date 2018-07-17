@@ -8,8 +8,10 @@ import Navbar from '../components/Navbar/Navbar';
 import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
 import Profile from '../components/Profile/Profile';
-// import Children from '../components/Children/Children';
 import Records from '../components/Records/Records';
+
+import fbConnection from '../firebaseRequests/connection';
+fbConnection();
 
 const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   return (
