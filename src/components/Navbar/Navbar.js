@@ -1,11 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import authRequests from '../../firebaseRequests/auth';
+
 import './Navbar.css';
 
 class Navbar extends React.Component {
   render () {
-    const { authed } = this.props;
+    const { authed, runAway } = this.props;
+    const logoutClickEvent = () => {
+      authRequests.logoutUser();
+      runAway();
+    };
     return (
       <div className="Navbar">
         <nav className="navbar navbar-default">
@@ -22,12 +28,19 @@ class Navbar extends React.Component {
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               {
                 authed ? (
-                  <ul className="nav navbar-nav navbar-right">
+                  <ul className="nav nav-pills navbar-right">
                     <li>
                       <Link to="/profile">Profile</Link>
                     </li>
                     <li>
                       <Link to="/records">Records</Link>
+                    </li>
+                    <li className="navbar-form">
+                      <button
+                        onClick={logoutClickEvent}
+                        className="btn btn-danger">
+                        LogOut
+                      </button>
                     </li>
                   </ul>
                 ) : (

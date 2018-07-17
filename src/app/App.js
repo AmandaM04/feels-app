@@ -69,6 +69,10 @@ class App extends Component {
     this.removeListener();
   }
 
+  runAway = () => {
+    this.setState({ authed: false });
+  }
+
   render () {
     return (
       <div className="App">
@@ -76,6 +80,7 @@ class App extends Component {
           <div>
             <Navbar
               authed={this.state.authed}
+              runAway={this.runAway}
             />
             <div className="container">
               <div className="row">
