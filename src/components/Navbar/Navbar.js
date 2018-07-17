@@ -5,6 +5,7 @@ import './Navbar.css';
 
 class Navbar extends React.Component {
   render () {
+    const { authed } = this.props;
     return (
       <div className="Navbar">
         <nav className="navbar navbar-default">
@@ -19,11 +20,24 @@ class Navbar extends React.Component {
               <Link to="/" className="navbar-brand">FeelsApp</Link>
             </div>
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul className="nav nav-pills navbar-right">
-                <li className="active">
-                  <Link to="/login">Login</Link>
-                </li>
-              </ul>
+              {
+                authed ? (
+                  <ul className="nav navbar-nav navbar-right">
+                    <li>
+                      <Link to="/profile">Profile</Link>
+                    </li>
+                    <li>
+                      <Link to="/records">Records</Link>
+                    </li>
+                  </ul>
+                ) : (
+                  <ul className="nav nav-pills navbar-right">
+                    <li className="active">
+                      <Link to="/login">Login</Link>
+                    </li>
+                  </ul>
+                )
+              }
             </div>
           </div>
         </nav>
