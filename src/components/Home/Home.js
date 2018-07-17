@@ -8,7 +8,7 @@ class Home extends React.Component {
       <div className="Home">
         <div className="feels-app">
           <h1>FeelsApp</h1>
-          <h3 className="tagline">Keeping up with temperatures and medication at the palm of your hand!</h3>
+          <h3 className="tagline">Keeping up with temperatures and medication in the palm of your hand!</h3>
         </div>
       </div>
     );

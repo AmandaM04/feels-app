@@ -1,0 +1,37 @@
+{
+	"record1": {
+		"name": "Alayziah",
+		"temperature": "100.3",
+		"medications": "motrin",
+		"symptoms": "tired, not hungry",
+		"uid": ""
+	},
+	"record2": {
+		"name": "Alex",
+		"temperature": "103.0",
+		"medications": "tylenol",
+		"symptoms": "tired, not hungry, vomitting, crying",
+		"uid": ""
+	},
+	"record3": {
+		"name": "Becky",
+		"temperature": "101.7",
+		"medications": "motrin",
+		"symptoms": "tired",
+		"uid": ""
+	},
+	"record4": {
+		"name": "Destinei",
+		"temperature": "99.9",
+		"medications": "tylenol",
+		"symptoms": "cranky",
+		"uid": ""
+	},
+	"record5": {
+		"name": "Venita",
+		"temperature": "102.1",
+		"medications": "motrin",
+		"symptoms": "cranky, tired, upset stomach",
+		"uid": ""
+	}
+}
