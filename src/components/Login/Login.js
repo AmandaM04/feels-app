@@ -19,7 +19,7 @@ class Login extends React.Component {
     authRequests
       .loginUser(user)
       .then(() => {
-        this.props.history.push('/home');
+        this.props.history.push('/records');
       })
       .catch((error) => {
         console.error(error.message);

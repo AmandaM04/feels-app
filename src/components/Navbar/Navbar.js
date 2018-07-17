@@ -20,7 +20,7 @@ class Navbar extends React.Component {
             </div>
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav nav-pills navbar-right">
-                <li class="active">
+                <li className="active">
                   <Link to="/login">Login</Link>
                 </li>
               </ul>
