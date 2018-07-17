@@ -27,12 +27,6 @@ class Register extends React.Component {
       });
   };
 
-  nameChange = e => {
-    const tempUser = {...this.state.user};
-    tempUser.email = e.target.value;
-    this.setState({user: tempUser});
-  };
-
   emailChange = e => {
     const tempUser = {...this.state.user};
     tempUser.email = e.target.value;
@@ -41,7 +35,7 @@ class Register extends React.Component {
 
   passwordChange = e => {
     const tempUser = {...this.state.user};
-    tempUser.email = e.target.value;
+    tempUser.password = e.target.value;
     this.setState({user: tempUser});
   };
 
@@ -52,21 +46,6 @@ class Register extends React.Component {
         <div id="login-form">
           <h1 className="text-center">Register</h1>
           <form className="form-horizontal col-xs-6 col-xs-offset-3">
-            <div className="form-group">
-              <label htmlFor="inputName" className="col-xs-4 control-label">
-                Name:
-              </label>
-              <div className="col-xs-8">
-                <input
-                  type="name"
-                  className="form-control"
-                  id="inputName"
-                  placeholder="Name"
-                  value={user.name}
-                  onChange={this.nameChange}
-                />
-              </div>
-            </div>
             <div className="form-group">
               <label htmlFor="inputEmail" className="col-xs-4 control-label">
                 Email:
