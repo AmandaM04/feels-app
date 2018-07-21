@@ -6,7 +6,7 @@ import authRequests from '../../firebaseRequests/auth';
 import './Register.css';
 
 class Register extends React.Component {
-  state= {
+  state = {
     user: {
       name: '',
       email: '',
@@ -27,16 +27,22 @@ class Register extends React.Component {
       });
   };
 
+  nameChange = e => {
+    const tempUser = { ...this.state.user };
+    tempUser.name = e.target.value;
+    this.setState({ user: tempUser });
+  };
+
   emailChange = e => {
-    const tempUser = {...this.state.user};
+    const tempUser = { ...this.state.user };
     tempUser.email = e.target.value;
-    this.setState({user: tempUser});
+    this.setState({ user: tempUser });
   };
 
   passwordChange = e => {
-    const tempUser = {...this.state.user};
+    const tempUser = { ...this.state.user };
     tempUser.password = e.target.value;
-    this.setState({user: tempUser});
+    this.setState({ user: tempUser });
   };
 
   render () {
@@ -46,6 +52,21 @@ class Register extends React.Component {
         <div id="login-form">
           <h1 className="text-center">Register</h1>
           <form className="form-horizontal col-xs-6 col-xs-offset-3">
+            <div className="form-group">
+              <label htmlFor="inputName" className="col-xs-4 control-label">
+                Name:
+              </label>
+              <div className="col-xs-8">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputName"
+                  placeholder="Name"
+                  value={user.name}
+                  onChange={this.nameChange}
+                />
+              </div>
+            </div>
             <div className="form-group">
               <label htmlFor="inputEmail" className="col-xs-4 control-label">
                 Email:

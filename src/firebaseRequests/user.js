@@ -3,10 +3,10 @@ import constants from '../constants';
 
 // Read Users
 
-const getUsers = () => {
+const getUsers = (uid) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${constants.firebaseConfig.databaseURL}/user.json`)
+      .get(`${constants.firebaseConfig.databaseURL}/user.json?orderBy="uid"&equalTo="${uid}"`)
       .then((res) => {
         const users = [];
         if (res.data !== null) {
@@ -28,7 +28,7 @@ const getUsers = () => {
 const postUser = (user) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${constants.firebaseConfig.databaseURL}/user.json`, user)
+      .post(`${constants.firebaseConfig.databaseURL}/users.json`, user)
       .then((res) => {
         resolve(res.data);
       })
