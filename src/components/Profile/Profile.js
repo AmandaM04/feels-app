@@ -29,7 +29,7 @@ class Profile extends React.Component {
     userRequests
       .getUsers(authRequest.getUid())
       .then((user) => {
-        this.setState({ user });
+        this.setState({ user: user[0] });
       })
       .catch((error) => {
         console.error(error.message);
@@ -59,8 +59,9 @@ class Profile extends React.Component {
             <form onSubmit={this.saveUser}>
               <h3>User Details</h3>
               <div className="parent">
-                <h4>Name</h4>
-                <input {...user} type="text" />
+                <h4>Name:</h4>
+                <div>{user.name}</div>
+                <button className="btn btn-default glyphicon glyphicon-edit"></button>
               </div>
               <div>
                 <button>Save</button>
