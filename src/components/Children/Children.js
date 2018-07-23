@@ -4,10 +4,10 @@ import './Children.css';
 
 class Children extends React.Component {
   render () {
-    const {details} = this.props;
+    const {children} = this.props;
     return (
       <div className="children">
-        <h2 className="child-name">{details.name}</h2>
+        <h2 className="child-name">{children.name}</h2>
       </div>
     );
   }
