@@ -48,12 +48,8 @@ class Profile extends React.Component {
     this.setState({ children: newChild });
   }
 
-  addChild = (key) => {
-    const newChild = { ...this.state.children };
-    newChild[key] = newChild[key] || 1;
-    this.setState({ children: newChild });
-
-  }
+  // addChild = () => {
+  // }
 
   componentDidMount () {
     userRequests
@@ -78,9 +74,13 @@ class Profile extends React.Component {
         <ChildComp
           key={child.id}
           details={child}
+          removeChild={this.removeChild}
         />
       );
     });
+    const xClickFunction = (key) => {
+      this.props.removeChild(key);
+    };
 
     return (
       <div className="container">
@@ -106,7 +106,7 @@ class Profile extends React.Component {
               <div className="child-container">
                 <div className="row">
                   <div>{childrenComponents}</div>
-                  <button className="btn btn-default glyphicon glyphicon-trash" alt="delete"></button>
+                  <button className="btn btn-default glyphicon glyphicon-trash" alt="delete" onClick={xClickFunction}></button>
                 </div>
                 <div>
                   <button className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>

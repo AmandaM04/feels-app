@@ -38,4 +38,17 @@ const postChild = (children) => {
   });
 };
 
-export default { getChildren, postChild };
+const deleteChild = (id) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${constants.firebaseConfig.databaseURL}/children/${id}.json`)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error.message);
+      });
+  });
+};
+
+export default { getChildren, postChild, deleteChild };
