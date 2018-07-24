@@ -38,6 +38,8 @@ const postChild = (children) => {
   });
 };
 
+// Delete Child
+
 const deleteChild = (id) => {
   return new Promise((resolve, reject) => {
     axios

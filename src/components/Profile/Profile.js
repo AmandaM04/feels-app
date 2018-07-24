@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from 'firebase';
 
 import userRequests from '../../firebaseRequests/user';
 import childrenRequests from '../../firebaseRequests/children';
@@ -12,12 +13,18 @@ class Profile extends React.Component {
   state = {
     user: [],
     children: [],
-    // visible: false,
+    visible: false,
   }
 
-  // show () {
+  // showHideEvent = (e) => {
+  //   e.preventDefault();
   //   this.setState({ visible: true });
   // }
+
+  show = (e) => {
+    e.preventDefault();
+    this.setState({ visible: true });
+  }
 
   // hide () {
   //   this.setState({ visible: false });
@@ -30,17 +37,25 @@ class Profile extends React.Component {
       });
   };
 
-  // updateUser = () => {
-  //   const firebaseId = this.props.match.params.id;
-  //   userRequests
-  //     .putUser(firebaseId, this.state.saveUser)
-  //     .then(() => {
-  //       this.props.history.push('/profile');
-  //     })
-  //     .catch((error) => {
-  //       console.error(error.message);
-  //     });
-  // };
+  updateUser = () => {
+    const firebaseId = firebase.auth().currentUser;
+    userRequests
+      .putUser(firebaseId, this.state.user)
+      .then(() => {
+        this.props.history.push('/profile');
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  };
+
+  getInitialState = () => {
+    return { input: '' };
+  }
+
+  handleChange = (e) => {
+    this.setState({ input: e.target.value });
+  }
 
   removeChild = (key) => {
     const newChild = { ...this.state.children };
@@ -78,8 +93,9 @@ class Profile extends React.Component {
         />
       );
     });
+
     const xClickFunction = (key) => {
-      this.props.removeChild(key);
+      this.removeChild(key);
     };
 
     return (
@@ -87,36 +103,32 @@ class Profile extends React.Component {
         <div className="row">
           <h1>Profile</h1>
           <div className="user-details">
-            <form onSubmit={this.saveUser}>
-              <h3>User Details</h3>
-              <div className="parent">
-                <h3>Name:</h3>
-                <div>{user.name}</div>
-                <button className="btn btn-default glyphicon glyphicon-edit"></button>
-              </div>
-              <div className="parentUpdateField hide">
-                <input type="text" />
-                <button>Save</button>
-              </div>
-            </form>
+            <h3>User Details</h3>
+            <div className="parent">
+              <h3>Name:</h3>
+              <div>{user.name}</div>
+              <button onClick={this.show} className="btn btn-default glyphicon glyphicon-edit"></button>
+            </div>
+            <div className="parentUpdateField">
+              <input type="text" onChange={ this.handleChange } />
+              <button onClick={this.updateUser}>Save</button>
+            </div>
           </div>
           <div className="childrens">
-            <form action="">
-              <h3>Child/ren Details</h3>
-              <div className="child-container">
-                <div className="row">
-                  <div>{childrenComponents}</div>
-                  <button className="btn btn-default glyphicon glyphicon-trash" alt="delete" onClick={xClickFunction}></button>
-                </div>
-                <div>
-                  <button className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>
-                </div>
-                <div className="childUpdateField hide">
-                  <input type="text" />
-                  <button>Save</button>
-                </div>
+            <h3>Child/ren Details</h3>
+            <div className="child-container">
+              <div className="row">
+                <div>{childrenComponents}</div>
+                <button className="btn btn-default glyphicon glyphicon-trash" alt="delete" onClick={xClickFunction}></button>
               </div>
-            </form>
+              <div>
+                <button className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>
+              </div>
+              <div className="childUpdateField">
+                <input ref="myInput" type="text" />
+                <button>Save</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
