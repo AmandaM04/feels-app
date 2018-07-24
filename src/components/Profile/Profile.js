@@ -4,16 +4,14 @@ import userRequests from '../../firebaseRequests/user';
 import childrenRequests from '../../firebaseRequests/children';
 import authRequest from '../../firebaseRequests/auth';
 
-// import NameChangeForm from '../NameChangeForm/NameChangeForm';
-// import firebase from 'firebase';
-// import User from '../User/User';
+import ChildComp from '../Children/Children';
 
 import './Profile.css';
 
 class Profile extends React.Component {
   state = {
     user: [],
-    children: {},
+    children: [],
     // visible: false,
   }
 
@@ -44,7 +42,16 @@ class Profile extends React.Component {
   //     });
   // };
 
-  removeChild = () => {
+  removeChild = (key) => {
+    const newChild = { ...this.state.children };
+    delete newChild[key];
+    this.setState({ children: newChild });
+  }
+
+  addChild = (key) => {
+    const newChild = { ...this.state.children };
+    newChild[key] = newChild[key] || 1;
+    this.setState({ children: newChild });
 
   }
 
@@ -54,9 +61,9 @@ class Profile extends React.Component {
       .then((user) => {
         this.setState({ user: user[0] });
         childrenRequests
-          .getChildren()
+          .getChildren(authRequest.getUid())
           .then((children) => {
-            this.setState({ children });
+            this.setState({ children: children });
           });
       })
       .catch(((error) => {
@@ -65,7 +72,15 @@ class Profile extends React.Component {
   }
 
   render () {
-    const { user, children } = this.state;
+    const { user } = this.state;
+    const childrenComponents = this.state.children.map((child) => {
+      return (
+        <ChildComp
+          key={child.id}
+          details={child}
+        />
+      );
+    });
 
     return (
       <div className="container">
@@ -75,27 +90,33 @@ class Profile extends React.Component {
             <form onSubmit={this.saveUser}>
               <h3>User Details</h3>
               <div className="parent">
-                <h4>Name:</h4>
+                <h3>Name:</h3>
                 <div>{user.name}</div>
                 <button className="btn btn-default glyphicon glyphicon-edit"></button>
               </div>
-              <div className="update-field">
+              <div className="parentUpdateField hide">
                 <input type="text" />
                 <button>Save</button>
               </div>
             </form>
           </div>
           <div className="childrens">
-            <h3>Child/ren Details</h3>
-            <div className="child-container">
-              <div className="row">
-                <div>{children.name}</div>
+            <form action="">
+              <h3>Child/ren Details</h3>
+              <div className="child-container">
+                <div className="row">
+                  <div>{childrenComponents}</div>
+                  <button className="btn btn-default glyphicon glyphicon-trash" alt="delete"></button>
+                </div>
+                <div>
+                  <button className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>
+                </div>
+                <div className="childUpdateField hide">
+                  <input type="text" />
+                  <button>Save</button>
+                </div>
               </div>
-            </div>
-            {/* <input type="text" /> */}
-            <div>
-              <button>Add New</button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
