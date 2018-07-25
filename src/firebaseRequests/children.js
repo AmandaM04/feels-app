@@ -23,7 +23,7 @@ const getChildren = (uid) => {
   });
 };
 
-// Post New Child
+// Create New Child
 
 const postChild = (children) => {
   return new Promise((resolve, reject) => {
@@ -37,6 +37,8 @@ const postChild = (children) => {
       });
   });
 };
+
+// Delete Child
 
 const deleteChild = (id) => {
   return new Promise((resolve, reject) => {

@@ -23,12 +23,12 @@ const getUsers = (uid) => {
   });
 };
 
-// Post New User
+// Create New User
 
 const postUser = (user) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${constants.firebaseConfig.databaseURL}/users.json`, user)
+      .post(`${constants.firebaseConfig.databaseURL}/user.json`, user)
       .then((res) => {
         resolve(res.data);
       })
@@ -38,4 +38,19 @@ const postUser = (user) => {
   });
 };
 
-export default { getUsers, postUser };
+// Update User
+
+const putUser = (userId, user) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(`${constants.firebaseConfig.databaseURL}/user/${userId}.json`, user)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error.message);
+      });
+  });
+};
+
+export default { getUsers, postUser, putUser };
