@@ -25,12 +25,12 @@ class Profile extends React.Component {
   //   this.setState({ visible: false });
   // }
 
-  saveUser = (e) => {
-    userRequests.postUser()
-      .then((user) => {
-        this.setState({ user });
-      });
-  };
+  // saveUser = (e) => {
+  //   userRequests.postUser()
+  //     .then((user) => {
+  //       this.setState({ user });
+  //     });
+  // };
 
   updateUser = () => {
     const firebaseId = this.state.user.id;
@@ -124,7 +124,7 @@ class Profile extends React.Component {
                 <button className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>
               </div>
               <div className="childUpdateField">
-                <input ref="myInput" type="text" />
+                <input type="text" onChange={ this.handleInputChange } />
                 <button>Save</button>
               </div>
             </div>
