@@ -25,13 +25,6 @@ class Profile extends React.Component {
   //   this.setState({ visible: false });
   // }
 
-  // saveUser = (e) => {
-  //   userRequests.postUser()
-  //     .then((user) => {
-  //       this.setState({ user });
-  //     });
-  // };
-
   updateUser = () => {
     const firebaseId = this.state.user.id;
     const updatedUser = {
@@ -62,8 +55,24 @@ class Profile extends React.Component {
   //   this.setState({ children: newChild });
   // }
 
-  // addChild = () => {
-  // }
+  addChild = () => {
+    const newChild = {
+      name: this.state.input,
+      uid: authRequest.getUid(),
+    };
+    childrenRequests
+      .postChild(newChild)
+      .then(() => {
+        childrenRequests
+          .getChildren(authRequest.getUid())
+          .then((children) => {
+            this.setState({ children: children });
+          });
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  }
 
   componentDidMount () {
     userRequests
@@ -125,7 +134,7 @@ class Profile extends React.Component {
               </div>
               <div className="childUpdateField">
                 <input type="text" onChange={ this.handleInputChange } />
-                <button>Save</button>
+                <button onClick={this.addChild}>Save</button>
               </div>
             </div>
           </div>
