@@ -115,7 +115,7 @@ class Profile extends React.Component {
               <div>{user.name}</div>
               <button onClick={this.show} className="btn btn-default glyphicon glyphicon-edit"></button>
             </div>
-            <div className="parentUpdateField hide">
+            <div className="parentUpdateField">
               <input type="text" onChange={ this.handleInputChange } />
               <button onClick={this.updateUser}>Save</button>
             </div>
