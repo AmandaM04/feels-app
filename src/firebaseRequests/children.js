@@ -23,7 +23,7 @@ const getChildren = (uid) => {
   });
 };
 
-// Post New Child
+// Create New Child
 
 const postChild = (children) => {
   return new Promise((resolve, reject) => {

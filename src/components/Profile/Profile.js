@@ -16,11 +16,6 @@ class Profile extends React.Component {
     visible: false,
   }
 
-  // showHideEvent = (e) => {
-  //   e.preventDefault();
-  //   this.setState({ visible: true });
-  // }
-
   show = (e) => {
     e.preventDefault();
     this.setState({ visible: true });
@@ -60,11 +55,6 @@ class Profile extends React.Component {
   handleInputChange = (e) => {
     this.setState({ input: e.target.value });
   }
-
-  // handleInputClick = (updatedUser) => {
-  //   console.error(this.state.input);
-  //   updatedUser = this.state.input;
-  // }
 
   // removeChild = (key) => {
   //   const newChild = { ...this.state.children };
@@ -120,9 +110,8 @@ class Profile extends React.Component {
             </div>
             <div className="parentUpdateField">
               <input type="text" onChange={ this.handleInputChange } />
-              {/* <button onClick={this.handleInputClick}>OK</button> */}
+              <button onClick={this.updateUser}>Save</button>
             </div>
-            <button onClick={this.updateUser}>Save</button>
           </div>
           <div className="childrens">
             <h3>Child/ren Details</h3>
