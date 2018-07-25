@@ -50,28 +50,11 @@ class Profile extends React.Component {
   }
 
   removeChild = (id) => {
-    const filteredChildren = [ ...this.state.children ];
-    delete filteredChildren.children[id];
+    const children = [ ...this.state.children ];
+    const filteredChildren = children.filter((child) => {
+      return child.id !== id;
+    });
     this.setState({ children: filteredChildren });
-    };
-    childrenRequests
-      .deleteChild(id)
-      .then(() => {
-        childrenRequests
-          .getChildren(authRequest.getUid())
-          .then((children) => {
-            this.setState({ children: children });
-          });
-      })
-      .catch((error) => {
-        console.error(error.message);
-      });
-  }
-    // const children = [ ...this.state.children ];
-    // const filteredChildren = children.filter((child) => {
-    //   return child.id !== id;
-    // });
-    // this.setState({ children: filteredChildren });
   }
 
   addChild = () => {
