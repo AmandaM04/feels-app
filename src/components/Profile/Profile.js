@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 
 import userRequests from '../../firebaseRequests/user';
 import childrenRequests from '../../firebaseRequests/children';
@@ -37,8 +37,8 @@ class Profile extends React.Component {
       });
   };
 
-  updateUser = () => {
-    const firebaseId = firebase.auth().currentUser;
+  updateUser = (updatedUser) => {
+    const firebaseId = this.state.user.id;
     userRequests
       .putUser(firebaseId, this.state.user)
       .then(() => {
@@ -53,15 +53,20 @@ class Profile extends React.Component {
     return { input: '' };
   }
 
-  handleChange = (e) => {
+  handleInputChange = (e) => {
     this.setState({ input: e.target.value });
   }
 
-  removeChild = (key) => {
-    const newChild = { ...this.state.children };
-    delete newChild[key];
-    this.setState({ children: newChild });
+  handleInputClick = (updatedUser) => {
+    console.error(this.state.input);
+    updatedUser = this.state.input;
   }
+
+  // removeChild = (key) => {
+  //   const newChild = { ...this.state.children };
+  //   delete newChild[key];
+  //   this.setState({ children: newChild });
+  // }
 
   // addChild = () => {
   // }
@@ -110,9 +115,10 @@ class Profile extends React.Component {
               <button onClick={this.show} className="btn btn-default glyphicon glyphicon-edit"></button>
             </div>
             <div className="parentUpdateField">
-              <input type="text" onChange={ this.handleChange } />
-              <button onClick={this.updateUser}>Save</button>
+              <input type="text" onChange={ this.handleInputChange } />
+              <button onClick={this.handleInputClick}>Save</button>
             </div>
+            <button onClick={this.updateUser}>Save</button>
           </div>
           <div className="childrens">
             <h3>Child/ren Details</h3>
