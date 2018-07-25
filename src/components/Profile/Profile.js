@@ -37,10 +37,14 @@ class Profile extends React.Component {
       });
   };
 
-  updateUser = (updatedUser) => {
+  updateUser = () => {
     const firebaseId = this.state.user.id;
+    const updatedUser = {
+      name: this.state.input,
+      uid: authRequest.getUid(),
+    };
     userRequests
-      .putUser(firebaseId, this.state.user)
+      .putUser(firebaseId, updatedUser)
       .then(() => {
         this.props.history.push('/profile');
       })
@@ -57,10 +61,10 @@ class Profile extends React.Component {
     this.setState({ input: e.target.value });
   }
 
-  handleInputClick = (updatedUser) => {
-    console.error(this.state.input);
-    updatedUser = this.state.input;
-  }
+  // handleInputClick = (updatedUser) => {
+  //   console.error(this.state.input);
+  //   updatedUser = this.state.input;
+  // }
 
   // removeChild = (key) => {
   //   const newChild = { ...this.state.children };
@@ -116,7 +120,7 @@ class Profile extends React.Component {
             </div>
             <div className="parentUpdateField">
               <input type="text" onChange={ this.handleInputChange } />
-              <button onClick={this.handleInputClick}>Save</button>
+              {/* <button onClick={this.handleInputClick}>OK</button> */}
             </div>
             <button onClick={this.updateUser}>Save</button>
           </div>

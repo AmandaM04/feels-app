@@ -40,10 +40,10 @@ const postUser = (user) => {
 
 // Update User
 
-const putUser = (userId, updatedUser) => {
+const putUser = (userId, user) => {
   return new Promise((resolve, reject) => {
     axios
-      .put(`${constants.firebaseConfig.databaseURL}/user/${userId}.json`, updatedUser)
+      .put(`${constants.firebaseConfig.databaseURL}/user/${userId}.json`, user)
       .then((res) => {
         resolve(res);
       })
