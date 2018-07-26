@@ -12,10 +12,11 @@ class Records extends React.Component {
   state = {
     user: [],
     records: {
-      uid: '',
+      name: '',
       temperature: '',
       medications: '',
       symptoms: '',
+      uid: '',
     },
   }
 
