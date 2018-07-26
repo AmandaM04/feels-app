@@ -11,13 +11,13 @@ import recordsRequests from '../../firebaseRequests/records';
 class Records extends React.Component {
   state = {
     user: [],
-    records: {
-      name: '',
-      temperature: '',
-      medications: '',
-      symptoms: '',
-      uid: '',
-    },
+    records: [
+      // name: '',
+      // temperature: '',
+      // medications: '',
+      // symptoms: '',
+      // uid: '',
+    ],
   }
 
   componentDidMount () {
@@ -28,7 +28,7 @@ class Records extends React.Component {
         recordsRequests
           .getRecords(authRequest.getUid())
           .then((records) => {
-            this.setState({ records: records });
+            this.setState({ records: records[0] });
           });
       })
       .catch(((error) => {
@@ -46,6 +46,9 @@ class Records extends React.Component {
         </div>
         <h3>Temperature</h3>
         <div className="tempHolder">
+          {/* {records.map = (d,idx) => {
+            return (<p key={idx}>{d.temperature}</p>);
+          }} */}
           <p>{records.temperature}</p>
         </div>
         <h3>Medications</h3>
