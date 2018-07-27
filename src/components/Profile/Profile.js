@@ -1,5 +1,5 @@
 import React from 'react';
-// import firebase from 'firebase';
+import firebase from 'firebase';
 
 import userRequests from '../../firebaseRequests/user';
 import childrenRequests from '../../firebaseRequests/children';
@@ -16,14 +16,14 @@ class Profile extends React.Component {
     visible: false,
   }
 
-  show = (e) => {
-    e.preventDefault();
-    this.setState({ visible: true });
-  }
-
-  // hide () {
-  //   this.setState({ visible: false });
+  // show = (e) => {
+  //   e.preventDefault();
+  //   this.setState({ visible: true });
   // }
+
+  // // hide () {
+  // //   this.setState({ visible: false });
+  // // }
 
   updateUser = () => {
     const firebaseId = this.state.user.id;
@@ -49,10 +49,11 @@ class Profile extends React.Component {
     this.setState({ input: e.target.value });
   }
 
-  removeChild = (id) => {
-    const children = [ ...this.state.children ];
+  removeChild = (key) => {
+    const children = [...this.state.children];
+    firebase.database().ref('children').child(key).remove();
     const filteredChildren = children.filter((child) => {
-      return child.id !== id;
+      return child.id !== key;
     });
     this.setState({ children: filteredChildren });
   }
@@ -116,7 +117,7 @@ class Profile extends React.Component {
               <button onClick={this.show} className="btn btn-default glyphicon glyphicon-edit"></button>
             </div>
             <div className="parentUpdateField">
-              <input type="text" onChange={ this.handleInputChange } />
+              <input type="text" onChange={this.handleInputChange} />
               <button onClick={this.updateUser}>Save</button>
             </div>
           </div>
@@ -131,7 +132,7 @@ class Profile extends React.Component {
                 <button className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>
               </div>
               <div className="childUpdateField hide">
-                <input type="text" onChange={ this.handleInputChange } />
+                <input type="text" onChange={this.handleInputChange} />
                 <button onClick={this.addChild}>Save</button>
               </div>
             </div>
