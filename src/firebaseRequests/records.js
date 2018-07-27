@@ -25,4 +25,17 @@ const getRecords = (uid) => {
 
 // Post New Record
 
-export default { getRecords };
+const postRecord = (newRecord) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${constants.firebaseConfig.databaseURL}/records.json`, newRecord)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error.message);
+      });
+  });
+};
+
+export default { getRecords, postRecord };
