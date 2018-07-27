@@ -13,17 +13,14 @@ class Profile extends React.Component {
   state = {
     user: [],
     children: [],
-    visible: false,
+    isHidden: true,
   }
 
-  show = (e) => {
-    e.preventDefault();
-    this.setState({ visible: true });
+  toggleHidden () {
+    this.setState({
+      isHidden: !this.state.isHidden,
+    });
   }
-
-  // hide () {
-  //   this.setState({ visible: false });
-  // }
 
   saveUser = (e) => {
     userRequests.postUser()
@@ -106,12 +103,13 @@ class Profile extends React.Component {
             <div className="parent">
               <h3>Name:</h3>
               <div>{user.name}</div>
-              <button onClick={this.show} className="btn btn-default glyphicon glyphicon-edit"></button>
+              <button onClick={this.toggleHidden.bind(this)} className="btn btn-default glyphicon glyphicon-edit"></button>
             </div>
-            <div className="parentUpdateField">
+            {!this.state.isHidden && <UpdateParentName />}
+            {/* <div className={this.props.shouldHide ? 'hidden' : ''} >
               <input type="text" onChange={ this.handleInputChange } />
               <button onClick={this.updateUser}>Save</button>
-            </div>
+            </div> */}
           </div>
           <div className="childrens">
             <h3>Child/ren Details</h3>
@@ -134,5 +132,12 @@ class Profile extends React.Component {
     );
   }
 }
+
+const UpdateParentName = () => (
+  <div className="parent-update-field" >
+    <input type="text" onChange={ this.handleInputChange } />
+    <button onClick={this.updateUser}>Save</button>
+  </div>
+);
 
 export default Profile;
