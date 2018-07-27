@@ -13,13 +13,21 @@ class Profile extends React.Component {
   state = {
     user: [],
     children: [],
-    visible: false,
+    isHidden: true,
   }
 
-  // show = (e) => {
-  //   e.preventDefault();
-  //   this.setState({ visible: true });
-  // }
+  toggleHidden () {
+    this.setState({
+      isHidden: !this.state.isHidden,
+    });
+  }
+
+  saveUser = (e) => {
+    userRequests.postUser()
+      .then((user) => {
+        this.setState({ user });
+      });
+  };
 
   // // hide () {
   // //   this.setState({ visible: false });
@@ -114,12 +122,13 @@ class Profile extends React.Component {
             <div className="parent">
               <h3>Name:</h3>
               <div>{user.name}</div>
-              <button onClick={this.show} className="btn btn-default glyphicon glyphicon-edit"></button>
+              <button onClick={this.toggleHidden.bind(this)} className="btn btn-default glyphicon glyphicon-edit"></button>
             </div>
-            <div className="parentUpdateField">
-              <input type="text" onChange={this.handleInputChange} />
+            {!this.state.isHidden && <UpdateParentName />}
+            {/* <div className={this.props.shouldHide ? 'hidden' : ''} >
+              <input type="text" onChange={ this.handleInputChange } />
               <button onClick={this.updateUser}>Save</button>
-            </div>
+            </div> */}
           </div>
           <div className="childrens">
             <h3>Child/ren Details</h3>
@@ -131,8 +140,8 @@ class Profile extends React.Component {
               <div>
                 <button className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>
               </div>
-              <div className="childUpdateField hide">
-                <input type="text" onChange={this.handleInputChange} />
+              <div className="childUpdateField">
+                <input type="text" onChange={ this.handleInputChange } />
                 <button onClick={this.addChild}>Save</button>
               </div>
             </div>
@@ -142,5 +151,12 @@ class Profile extends React.Component {
     );
   }
 }
+
+const UpdateParentName = () => (
+  <div className="parent-update-field" >
+    <input type="text" onChange={ this.handleInputChange } />
+    <button onClick={this.updateUser}>Save</button>
+  </div>
+);
 
 export default Profile;
