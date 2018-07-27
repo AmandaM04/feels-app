@@ -110,9 +110,16 @@ class Profile extends React.Component {
     });
 
     const UpdateParentName = () => (
-      <div className="parent-update-field" >
+      <div className="parentUpdateField" >
         <input type="text" onChange={ this.handleInputChange } />
         <button onClick={this.updateUser}>Save</button>
+      </div>
+    );
+
+    const AddNewChildName = () => (
+      <div className="newChildField" >
+        <input type="text" onChange={ this.handleInputChange } />
+        <button onClick={this.addChild}>Save</button>
       </div>
     );
 
@@ -128,7 +135,7 @@ class Profile extends React.Component {
               <button onClick={this.toggleHidden.bind(this)} className="btn btn-default glyphicon glyphicon-edit"></button>
             </div>
             {!this.state.isHidden && <UpdateParentName />}
-            {/* <div className="parent-update-field" style={style} >
+            {/* <div className="parent-update-field" >
               <input type="text" onChange={ this.handleInputChange } />
               <button onClick={this.updateUser}>Save</button>
             </div> */}
@@ -137,16 +144,19 @@ class Profile extends React.Component {
             <h3>Child/ren Details</h3>
             <div className="child-container">
               <div className="row">
-                <div>{childrenComponents}</div>
-                {/* <button className="btn btn-default glyphicon glyphicon-trash" alt="delete" onClick={xClickFunction}></button> */}
+                <button onClick={this.toggleHidden.bind(this)} className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>
+                {/* <div>{childrenComponents}</div> */}
               </div>
+              {!this.state.isHidden && <AddNewChildName />}
               <div>
-                <button className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>
+                {/* <button className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button> */}
+                <div>{childrenComponents}</div>
               </div>
-              <div className="childUpdateField">
+              {/* {!this.state.isHidden && <AddNewChildName />} */}
+              {/* <div className="childUpdateField">
                 <input type="text" onChange={ this.handleInputChange } />
                 <button onClick={this.addChild}>Save</button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

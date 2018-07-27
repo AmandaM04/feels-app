@@ -47,13 +47,13 @@ class Records extends React.Component {
         </div>
         <div>
           <button>Add New Record</button>
-          <RecordsForm />
+        </div>
+        <div>
+          <RecordsForm
+            onSubmit={this.formSubmitEvent}/>
         </div>
         <h3>Temperature</h3>
         <div className="tempHolder">
-          {/* {records.map = (d,idx) => {
-            return (<p key={idx}>{d.temperature}</p>);
-          }} */}
           <p>{records.temperature}</p>
         </div>
         <h3>Medications</h3>
