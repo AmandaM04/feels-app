@@ -135,7 +135,7 @@ class Profile extends React.Component {
               <div>
                 <button className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>
               </div>
-              <div className="childUpdateField hide">
+              <div className="childUpdateField">
                 <input type="text" onChange={ this.handleInputChange } />
                 <button onClick={this.addChild}>Save</button>
               </div>
