@@ -1,5 +1,5 @@
 import React from 'react';
-// import firebase from 'firebase';
+import firebase from 'firebase';
 
 import userRequests from '../../firebaseRequests/user';
 import childrenRequests from '../../firebaseRequests/children';
@@ -29,6 +29,10 @@ class Profile extends React.Component {
       });
   };
 
+  // // hide () {
+  // //   this.setState({ visible: false });
+  // // }
+
   updateUser = () => {
     const firebaseId = this.state.user.id;
     const updatedUser = {
@@ -53,10 +57,11 @@ class Profile extends React.Component {
     this.setState({ input: e.target.value });
   }
 
-  removeChild = (id) => {
-    const children = [ ...this.state.children ];
+  removeChild = (key) => {
+    const children = [...this.state.children];
+    firebase.database().ref('children').child(key).remove();
     const filteredChildren = children.filter((child) => {
-      return child.id !== id;
+      return child.id !== key;
     });
     this.setState({ children: filteredChildren });
   }
