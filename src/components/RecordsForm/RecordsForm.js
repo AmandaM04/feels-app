@@ -40,7 +40,7 @@ class RecordsForm extends React.Component {
   render () {
     const {newRecord} = this.state;
     return (
-      <form className="form-horizontal col-sm-6 col-sm-offset-3">
+      <form className="col-xs-8 col-xs-offset-2">
         <div className="form-group">
           <label htmlFor="inputTemperature">
             Temperature:

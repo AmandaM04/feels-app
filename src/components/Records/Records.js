@@ -3,6 +3,7 @@ import React from 'react';
 import './Records.css';
 
 // import user from '../User/User';
+import RecordsForm from '../RecordsForm/RecordsForm';
 
 import userRequests from '../../firebaseRequests/user';
 import authRequest from '../../firebaseRequests/auth';
@@ -46,6 +47,7 @@ class Records extends React.Component {
         </div>
         <div>
           <button>Add New Record</button>
+          <RecordsForm />
         </div>
         <h3>Temperature</h3>
         <div className="tempHolder">
