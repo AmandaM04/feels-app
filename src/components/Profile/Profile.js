@@ -53,14 +53,32 @@ class Profile extends React.Component {
     this.setState({ input: e.target.value });
   }
 
-  // removeChild = (key) => {
-  //   const newChild = { ...this.state.children };
-  //   delete newChild[key];
-  //   this.setState({ children: newChild });
-  // }
+  removeChild = (id) => {
+    const children = [ ...this.state.children ];
+    const filteredChildren = children.filter((child) => {
+      return child.id !== id;
+    });
+    this.setState({ children: filteredChildren });
+  }
 
-  // addChild = () => {
-  // }
+  addChild = () => {
+    const newChild = {
+      name: this.state.input,
+      uid: authRequest.getUid(),
+    };
+    childrenRequests
+      .postChild(newChild)
+      .then(() => {
+        childrenRequests
+          .getChildren(authRequest.getUid())
+          .then((children) => {
+            this.setState({ children: children });
+          });
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  }
 
   componentDidMount () {
     userRequests
@@ -90,10 +108,6 @@ class Profile extends React.Component {
       );
     });
 
-    const xClickFunction = (key) => {
-      this.removeChild(key);
-    };
-
     return (
       <div className="container">
         <div className="row">
@@ -116,14 +130,14 @@ class Profile extends React.Component {
             <div className="child-container">
               <div className="row">
                 <div>{childrenComponents}</div>
-                <button className="btn btn-default glyphicon glyphicon-trash" alt="delete" onClick={xClickFunction}></button>
+                {/* <button className="btn btn-default glyphicon glyphicon-trash" alt="delete" onClick={xClickFunction}></button> */}
               </div>
               <div>
                 <button className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>
               </div>
-              <div className="childUpdateField">
-                <input ref="myInput" type="text" />
-                <button>Save</button>
+              <div className="childUpdateField hide">
+                <input type="text" onChange={ this.handleInputChange } />
+                <button onClick={this.addChild}>Save</button>
               </div>
             </div>
           </div>
