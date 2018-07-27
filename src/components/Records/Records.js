@@ -44,6 +44,9 @@ class Records extends React.Component {
         <div className="intro-parent">
           <p>Welcome {user.name}</p>
         </div>
+        <div>
+          <button>Add New Record</button>
+        </div>
         <h3>Temperature</h3>
         <div className="tempHolder">
           {/* {records.map = (d,idx) => {
