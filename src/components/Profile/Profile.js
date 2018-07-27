@@ -29,10 +29,6 @@ class Profile extends React.Component {
       });
   };
 
-  // // hide () {
-  // //   this.setState({ visible: false });
-  // // }
-
   updateUser = () => {
     const firebaseId = this.state.user.id;
     const updatedUser = {
@@ -113,6 +109,13 @@ class Profile extends React.Component {
       );
     });
 
+    const UpdateParentName = () => (
+      <div className="parent-update-field" >
+        <input type="text" onChange={ this.handleInputChange } />
+        <button onClick={this.updateUser}>Save</button>
+      </div>
+    );
+
     return (
       <div className="container">
         <div className="row">
@@ -125,7 +128,7 @@ class Profile extends React.Component {
               <button onClick={this.toggleHidden.bind(this)} className="btn btn-default glyphicon glyphicon-edit"></button>
             </div>
             {!this.state.isHidden && <UpdateParentName />}
-            {/* <div className={this.props.shouldHide ? 'hidden' : ''} >
+            {/* <div className="parent-update-field" style={style} >
               <input type="text" onChange={ this.handleInputChange } />
               <button onClick={this.updateUser}>Save</button>
             </div> */}
@@ -152,11 +155,11 @@ class Profile extends React.Component {
   }
 }
 
-const UpdateParentName = () => (
-  <div className="parent-update-field" >
-    <input type="text" onChange={ this.handleInputChange } />
-    <button onClick={this.updateUser}>Save</button>
-  </div>
-);
+// const UpdateParentName = () => (
+//   <div className="parent-update-field" >
+//     <input type="text" onChange={ this.handleInputChange } />
+//     <button onClick={this.updateUser}>Save</button>
+//   </div>
+// );
 
 export default Profile;
