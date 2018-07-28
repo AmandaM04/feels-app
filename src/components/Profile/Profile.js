@@ -10,13 +10,40 @@ import ChildComp from '../Children/Children';
 import './Profile.css';
 
 class Profile extends React.Component {
+
+  // constructor (props) {
+  //   super(props);
+  //   this.state = {
+  //     user: [],
+  //     children: [],
+  //     isHidden: true,
+  //   };
+
+  //   this.getInitialState = this.getInitialState.bind(this);
+  //   this.handleInputChange = this.handleInputChange.bind(this);
+  // }
+
+  // handleInputChange = (e) => {
+  //   this.setState({ input: e.target.value });
+  // }
+
+  // getInitialState = () => {
+  //   return { input: '' };
+  // }
+
+  // toggleHidden () {
+  //   this.setState({
+  //     isHidden: !this.state.isHidden,
+  //   });
+  // }
+
   state = {
     user: [],
     children: [],
     isHidden: true,
   }
 
-  toggleHidden () {
+  toggleHidden = () => {
     this.setState({
       isHidden: !this.state.isHidden,
     });
@@ -132,9 +159,9 @@ class Profile extends React.Component {
             <div className="parent">
               <h3>Name:</h3>
               <div>{user.name}</div>
-              <button onClick={this.toggleHidden.bind(this)} className="btn btn-default glyphicon glyphicon-edit"></button>
+              <button onClick={this.toggleHidden} className="btn btn-default glyphicon glyphicon-edit"></button>
             </div>
-            {!this.state.isHidden && <UpdateParentName />}
+            {!this.state.isHidden ? UpdateParentName() : ''}
             {/* <div className="parent-update-field" >
               <input type="text" onChange={ this.handleInputChange } />
               <button onClick={this.updateUser}>Save</button>
@@ -166,9 +193,16 @@ class Profile extends React.Component {
 }
 
 // const UpdateParentName = () => (
-//   <div className="parent-update-field" >
+//   <div className="parentUpdateField" >
 //     <input type="text" onChange={ this.handleInputChange } />
 //     <button onClick={this.updateUser}>Save</button>
+//   </div>
+// );
+
+// const AddNewChildName = () => (
+//   <div className="newChildField" >
+//     <input type="text" onChange={ this.handleInputChange } />
+//     <button onClick={this.addChild}>Save</button>
 //   </div>
 // );
 
