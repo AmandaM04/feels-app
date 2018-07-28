@@ -162,10 +162,6 @@ class Profile extends React.Component {
               <button onClick={this.toggleHidden} className="btn btn-default glyphicon glyphicon-edit"></button>
             </div>
             {!this.state.isHidden ? UpdateParentName() : ''}
-            {/* <div className="parent-update-field" >
-              <input type="text" onChange={ this.handleInputChange } />
-              <button onClick={this.updateUser}>Save</button>
-            </div> */}
           </div>
           <div className="childrens">
             <h3>Child/ren Details</h3>
