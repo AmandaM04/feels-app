@@ -2,7 +2,6 @@ import React from 'react';
 
 import './Records.css';
 
-// import user from '../User/User';
 import RecordsForm from '../RecordsForm/RecordsForm';
 
 import userRequests from '../../firebaseRequests/user';
@@ -17,6 +16,13 @@ class Records extends React.Component {
     children: [],
     childsLatestRecord: {},
     selectedChild: '',
+    isHidden: true,
+  }
+
+  toggleHiddenForm = () => {
+    this.setState({
+      isHidden: !this.state.isHidden,
+    });
   }
 
   onSubmit = (record) => {
@@ -84,6 +90,15 @@ class Records extends React.Component {
         return (<button key={index} onClick={this.setSelectedChild}>{child.name}</button>);
       });
     };
+
+    const NewRecordsForm = () => (
+      <div className="newRecordInput" >
+        <RecordsForm
+          childName={childsLatestRecord.name}
+          onSubmit={this.onSubmit}
+        />
+      </div>
+    );
     return (
       <div className="records">
         <div className="introParent">
@@ -96,14 +111,9 @@ class Records extends React.Component {
               <h4>Records for: {childsLatestRecord.name}</h4>
             </div>
             <div>
-              <button>Add New Record</button>
+              <button onClick={this.toggleHiddenForm}>Add New Record</button>
             </div>
-            <div>
-              <RecordsForm
-                childName={childsLatestRecord.name}
-                onSubmit={this.onSubmit}
-              />
-            </div>
+            {!this.state.isHidden ? NewRecordsForm() : ''}
             <div className="col-xs-8 col-xs-offset-2">
               <h3>Temperature</h3>
               <div className="tempHolder">
