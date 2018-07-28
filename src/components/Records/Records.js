@@ -32,7 +32,10 @@ class Records extends React.Component {
         recordsRequests
           .getRecords(authRequest.getUid())
           .then((records) => {
-            this.setState({ records: records });
+            this.setState({ records: records },
+              () => {
+                this.getRecordsForSelectedChild();
+              });
           });
       })
       .catch((error) => {
@@ -42,7 +45,7 @@ class Records extends React.Component {
 
   setSelectedChild = (e) => {
     const childName = e.target.innerHTML;
-    this.setState({ selectedChild: childName}, () => {
+    this.setState({ selectedChild: childName }, () => {
       this.getRecordsForSelectedChild();
     });
   }
@@ -50,11 +53,18 @@ class Records extends React.Component {
   getRecordsForSelectedChild = () => {
     const child = this.state.selectedChild;
     const recordCopy = [...this.state.records];
-    const childRecords = recordCopy.filter((record) => {
-      return record.name === child;
-    });
-    const newestRecord = childRecords[childRecords.length - 1];
-    this.setState({childsLatestRecord: newestRecord});
+    console.log('recordCopy:', recordCopy);
+    let newestRecord = '';
+    if (recordCopy.length === 0) {
+      newestRecord = {};
+    } else {
+      const childRecords = recordCopy.filter((record) => {
+        return record.name === child;
+      });
+      newestRecord = childRecords[childRecords.length - 1];
+    }
+    console.log('newestRecord:', newestRecord);
+    this.setState({ childsLatestRecord: newestRecord });
   };
 
   componentDidMount () {
@@ -89,7 +99,7 @@ class Records extends React.Component {
     const NewRecordsForm = () => (
       <div className="newRecordInput" >
         <RecordsForm
-          childName={childsLatestRecord.name}
+          childName={this.state.selectedChild}
           onSubmit={this.onSubmit}
         />
       </div>
@@ -99,16 +109,20 @@ class Records extends React.Component {
         <div className="introParent">
           <h4>Welcome {user.name}</h4>
           {childSelector()}
+          {this.state.selectedChild !== '' ? (
+            <div>
+              <div>
+                <button onClick={this.toggleHiddenForm}>Add New Record</button>
+              </div>
+              {!this.state.isHidden ? NewRecordsForm() : ''}
+            </div>
+          ) : ''}
         </div>
         {(this.state.selectedChild !== '' && childsLatestRecord !== undefined) ?
           (<div>
             <div className="introChild">
               <h4>Records for: {childsLatestRecord.name}</h4>
             </div>
-            <div>
-              <button onClick={this.toggleHiddenForm}>Add New Record</button>
-            </div>
-            {!this.state.isHidden ? NewRecordsForm() : ''}
             <div className="col-xs-8 col-xs-offset-2">
               <h3>Temperature</h3>
               <div className="tempHolder">
