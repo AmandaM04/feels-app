@@ -4,7 +4,6 @@ import React from 'react';
 import './RecordsForm.css';
 
 import authRequest from '../../firebaseRequests/auth';
-import recordsRequests from '../../firebaseRequests/records';
 
 const defaultRecord = {
   temperature: '',
@@ -46,35 +45,21 @@ class RecordsForm extends React.Component {
   }
 
   formSubmit = (e) => {
+    e.preventDefault();
     const {onSubmit} = this.props;
     const {newRecord} = this.state;
-    e.preventDefault();
+    newRecord.uid = authRequest.getUid();
+    newRecord.name = this.props.childName;
+    console.error('newRecord:', newRecord);
     if (
       newRecord.temperature &&
       newRecord.medications &&
       newRecord.symptoms
     ) {
-      onSubmit(this.state.newRecord);
-      this.setState({ newRecord: defaultRecord });
+      onSubmit(newRecord);
     } else {
       alert('Complete all fields');
     }
-  }
-
-  onSubmit = () => {
-    const { newRecord } = this.state;
-    recordsRequests
-      .postRecord(newRecord)
-      .then(() => {
-        recordsRequests
-          .getRecords(authRequest.getUid())
-          .then((records) => {
-            this.setState({ records: records });
-          });
-      })
-      .catch((error) => {
-        console.error(error.message);
-      });
   }
 
   render () {
@@ -82,13 +67,13 @@ class RecordsForm extends React.Component {
     return (
       <div className="col-xs-8 col-xs-offset-2">
         <h3 className="text-center">Submit new record:</h3>
-        <form onSubmit={this.formSubmitEvent}>
+        <form>
           <div className="form-group">
             <fieldset className="col-xs-12">
               <label htmlFor="inputTemperature">
                 Temperature:
               </label>
-              <div className="col-sm-12">
+              <div className="col-xs-12">
                 <input
                   type="number"
                   className="form-control"
@@ -105,7 +90,7 @@ class RecordsForm extends React.Component {
               <label htmlFor="inputMedication">
                 Medications:
               </label>
-              <div className="col-sm-12">
+              <div className="col-xs-12">
                 <input
                   type="text"
                   className="form-control"
@@ -122,7 +107,7 @@ class RecordsForm extends React.Component {
               <label htmlFor="inputSymptoms">
                 Symptoms:
               </label>
-              <div className="col-sm-12">
+              <div className="col-xs-12">
                 <input
                   type="text"
                   className="form-control"
@@ -134,7 +119,7 @@ class RecordsForm extends React.Component {
               </div>
             </fieldset>
           </div>
-          <button>Save</button>
+          <button onClick={this.formSubmit}>Save</button>
         </form>
       </div>
     );
