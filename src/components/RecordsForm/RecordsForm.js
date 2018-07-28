@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 
 import './RecordsForm.css';
 
@@ -12,10 +11,6 @@ const defaultRecord = {
 };
 
 class RecordsForm extends React.Component {
-  // static propTypes = {
-  //   onSubmit: PropTypes.func.isRequired,
-  // }
-
   state = {
     newRecord: defaultRecord,
   }

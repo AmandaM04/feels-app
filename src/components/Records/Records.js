@@ -42,7 +42,6 @@ class Records extends React.Component {
 
   setSelectedChild = (e) => {
     const childName = e.target.innerHTML;
-    console.log('childName:', childName);
     this.setState({ selectedChild: childName}, () => {
       this.getRecordsForSelectedChild();
     });
@@ -50,12 +49,8 @@ class Records extends React.Component {
 
   getRecordsForSelectedChild = () => {
     const child = this.state.selectedChild;
-    console.log('child:', child);
     const recordCopy = [...this.state.records];
-    console.log('recordCopy:', recordCopy);
     const childRecords = recordCopy.filter((record) => {
-      console.log('record:', record);
-      console.log('selectedChild:', child);
       return record.name === child;
     });
     const newestRecord = childRecords[childRecords.length - 1];
