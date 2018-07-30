@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import './Records.css';
 
@@ -126,15 +127,15 @@ class Records extends React.Component {
             <div className="col-xs-8 col-xs-offset-2">
               <h3>Temperature</h3>
               <div className="tempHolder">
-                <p>{childsLatestRecord.temperature}</p>
+                <p>{childsLatestRecord.temperature} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
               <h3>Medications</h3>
               <div className="medHolder">
-                <p>{childsLatestRecord.medications}</p>
+                <p>{childsLatestRecord.medications} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
               <h3>Symptoms</h3>
               <div className="sympHolder">
-                <p>{childsLatestRecord.symptoms}</p>
+                <p>{childsLatestRecord.symptoms} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
             </div>
           </div>) : ''
