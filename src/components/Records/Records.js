@@ -17,12 +17,12 @@ class Records extends React.Component {
     children: [],
     childsLatestRecord: {},
     selectedChild: '',
-    isHidden: true,
+    isHiddenForm: true,
   }
 
   toggleHiddenForm = () => {
     this.setState({
-      isHidden: !this.state.isHidden,
+      isHiddenForm: !this.state.isHiddenForm,
     });
   }
 
@@ -115,7 +115,7 @@ class Records extends React.Component {
               <div>
                 <button onClick={this.toggleHiddenForm}>Add New Record</button>
               </div>
-              {!this.state.isHidden ? NewRecordsForm() : ''}
+              {!this.state.isHiddenForm ? NewRecordsForm() : ''}
             </div>
           ) : ''}
         </div>
