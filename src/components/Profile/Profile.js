@@ -132,20 +132,20 @@ class Profile extends React.Component {
       <div className="container">
         <div className="row">
           <h1>Profile</h1>
-          <div className="user-details">
+          <div className="userDetails">
             <h3>User Details</h3>
             <div className="parent">
-              <h3>Name:</h3>
-              <div>{user.name}</div>
-              <button onClick={this.toggleHiddenParent} className="btn btn-default glyphicon glyphicon-edit"></button>
+              {/* <h4>Name:</h4> */}
+              <h4>{user.name}</h4>
+              <button onClick={this.toggleHiddenParent} type="button" class="btn btn-default btn-secondary">Edit</button>
             </div>
             {!this.state.isHiddenParent ? UpdateParentName() : ''}
           </div>
           <div className="childrens">
-            <h3>Child/ren Details</h3>
-            <div className="child-container">
+            <div className="childContainer">
+              <h3>Child/ren Details</h3>
               <div className="row">
-                <button onClick={this.toggleHiddenChild} className="btn btn-default glyphicon glyphicon-plus" alt="add new"></button>
+                <button onClick={this.toggleHiddenChild} className="btn btn-secondary glyphicon glyphicon-plus" alt="add new"></button>
               </div>
               {!this.state.isHiddenChild ? AddNewChildName() : ''}
               <div>
