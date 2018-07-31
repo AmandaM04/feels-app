@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import './Records.css';
 
@@ -16,16 +17,17 @@ class Records extends React.Component {
     children: [],
     childsLatestRecord: {},
     selectedChild: '',
-    isHidden: true,
+    isHiddenForm: true,
   }
 
   toggleHiddenForm = () => {
     this.setState({
-      isHidden: !this.state.isHidden,
+      isHiddenForm: !this.state.isHiddenForm,
     });
   }
 
   onSubmit = (record) => {
+    record.dateTime = moment();
     recordsRequests
       .postRecord(record)
       .then(() => {
@@ -114,7 +116,7 @@ class Records extends React.Component {
               <div>
                 <button onClick={this.toggleHiddenForm}>Add New Record</button>
               </div>
-              {!this.state.isHidden ? NewRecordsForm() : ''}
+              {!this.state.isHiddenForm ? NewRecordsForm() : ''}
             </div>
           ) : ''}
         </div>
@@ -126,15 +128,15 @@ class Records extends React.Component {
             <div className="col-xs-8 col-xs-offset-2">
               <h3>Temperature</h3>
               <div className="tempHolder">
-                <p>{childsLatestRecord.temperature}</p>
+                <p>{childsLatestRecord.temperature} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
               <h3>Medications</h3>
               <div className="medHolder">
-                <p>{childsLatestRecord.medications}</p>
+                <p>{childsLatestRecord.medications} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
               <h3>Symptoms</h3>
               <div className="sympHolder">
-                <p>{childsLatestRecord.symptoms}</p>
+                <p>{childsLatestRecord.symptoms} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
             </div>
           </div>) : ''
