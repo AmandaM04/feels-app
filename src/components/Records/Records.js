@@ -27,6 +27,7 @@ class Records extends React.Component {
   }
 
   onSubmit = (record) => {
+    record.dateTime = moment();
     recordsRequests
       .postRecord(record)
       .then(() => {

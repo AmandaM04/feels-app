@@ -3,34 +3,39 @@
 		"name": "Alayziah",
 		"temperature": "100.3",
 		"medications": "motrin",
-		"symptoms": "tired, not hungry",
+    "symptoms": "tired, not hungry",
+    "dateTime": "2018-06-03T00:23:05.643Z",
 		"uid": "1Niguw9H0LP1PEgCWGuqswoRRop1"
 	},
 	"record2": {
 		"name": "Matthew",
 		"temperature": "103.0",
 		"medications": "tylenol",
-		"symptoms": "tired, not hungry, vomitting, crying",
+    "symptoms": "tired, not hungry, vomitting, crying",
+    "dateTime": "2018-03-22T00:18:01.862Z",
 		"uid": "oF5OVoixRfQWpmdhAuBN5uGgVDk2"
 	},
 	"record3": {
 		"name": "Jacob",
 		"temperature": "101.7",
 		"medications": "motrin",
-		"symptoms": "tired",
+    "symptoms": "tired",
+    "dateTime": "2018-07-10T00:55:09.412Z",
 		"uid": "4aX1Jn7bgLOwFO9zcWdWoNSJXI52"
 	},
 	"record4": {
 		"name": "Karter",
 		"temperature": "99.9",
 		"medications": "tylenol",
-		"symptoms": "cranky",
+    "symptoms": "cranky",
+    "dateTime": "2018-05-05T00:10:09.412Z",
 		"uid": "KQvvryLIdsYUnUfoctQitxyWVUO2"
 	},
 	"record5": {
 		"name": "Nevaeh",
 		"temperature": "102.1",
-		"medications": "motrin",
+    "medications": "motrin",
+    "dateTime": "2018-07-12T00:04:09.412Z",
 		"symptoms": "cranky, tired, upset stomach",
 		"uid": "oF5OVoixRfQWpmdhAuBN5uGgVDk2"
 	}
