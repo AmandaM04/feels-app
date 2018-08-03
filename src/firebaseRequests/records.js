@@ -15,6 +15,9 @@ const getRecords = (uid) => {
             records.push(res.data[key]);
           });
         }
+        records.sort((a,b) => {
+          return +new Date(a.dateTime) - +new Date(b.dateTime);
+        });
         resolve(records);
       })
       .catch((err) => {

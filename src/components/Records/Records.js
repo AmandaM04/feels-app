@@ -82,6 +82,9 @@ class Records extends React.Component {
         recordsRequests
           .getRecords(authRequest.getUid())
           .then((records) => {
+            records.sort((a,b) => {
+              return +new Date(a.dateTime) - +new Date(b.dateTime);
+            });
             this.setState({ records: records });
           });
       })
@@ -94,7 +97,7 @@ class Records extends React.Component {
     const { user, childsLatestRecord, children } = this.state;
     const childSelector = () => {
       return children.map((child, index) => {
-        return (<button key={index} onClick={this.setSelectedChild}>{child.name}</button>);
+        return (<button className="chldSelectorButton" key={index} onClick={this.setSelectedChild}>{child.name}</button>);
       });
     };
 
@@ -126,15 +129,15 @@ class Records extends React.Component {
               <h4>Records for: {childsLatestRecord.name}</h4>
             </div>
             <div className="col-xs-8 col-xs-offset-2">
-              <h3>Temperature</h3>
+              <h3 class="text-center">Temperature</h3>
               <div className="tempHolder">
                 <p>{childsLatestRecord.temperature} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
-              <h3>Medications</h3>
+              <h3 class="text-center">Medications</h3>
               <div className="medHolder">
                 <p>{childsLatestRecord.medications} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
-              <h3>Symptoms</h3>
+              <h3 class="text-center">Symptoms</h3>
               <div className="sympHolder">
                 <p>{childsLatestRecord.symptoms} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
