@@ -10,8 +10,8 @@ class ChildComp extends React.Component {
     const {details} = this.props;
     return (
       <div className="children">
-        <h2 className="child-name">{details.name}</h2>
-        <button className="btn btn-default glyphicon glyphicon-trash" alt="delete" onClick={this.addClickEvent}></button>
+        <p className="childName col-sm-9">{details.name}</p>
+        <button className="btn btn-default-sm glyphicon glyphicon-trash deleteChild col-sm-3" onClick={this.addClickEvent}></button>
       </div>
     );
   }
