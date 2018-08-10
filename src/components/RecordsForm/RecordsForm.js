@@ -45,7 +45,7 @@ class RecordsForm extends React.Component {
     const {newRecord} = this.state;
     newRecord.uid = authRequest.getUid();
     newRecord.name = this.props.childName;
-    console.error('newRecord:', newRecord);
+    // console.error('newRecord:', newRecord);
     if (
       newRecord.temperature &&
       newRecord.medications &&

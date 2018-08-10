@@ -131,7 +131,7 @@ class Profile extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <h1>Profile</h1>
+          <h1><strong>Profile</strong></h1>
           <div className="userDetails">
             <h3>User Details</h3>
             <div className="parent">
@@ -143,7 +143,7 @@ class Profile extends React.Component {
           </div>
           <div className="childrens">
             <div className="childContainer">
-              <h3>Child/ren Details</h3>
+              <h3>Patient Details</h3>
               <div className="row">{childrenComponents}</div>
               <div className="row">
                 <button onClick={this.toggleHiddenChild} className="btn btn-default">Add New</button>

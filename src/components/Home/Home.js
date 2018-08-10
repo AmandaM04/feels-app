@@ -7,8 +7,8 @@ class Home extends React.Component {
     return (
       <div className="Home">
         <div className="feels-app">
-          <h1>FeelsApp</h1>
-          <h2 className="tagline">Keeping up with temperatures and medication in the palm of your hand!</h2>
+          <h1 className="title">FeelsApp</h1>
+          <h2 className="tagline">New innovative way to record symptoms, track medications, and monitor patient's temperatures.</h2>
         </div>
       </div>
     );
