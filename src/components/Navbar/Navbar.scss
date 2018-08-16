@@ -1,0 +1,28 @@
+.navbar-brand {
+  font-family: fantasy;
+  font-weight: bolder;
+  text-decoration: underline;
+  font-size: 24px;
+}
+
+.nav>li>a {
+  margin-top: 5px;
+}
+
+.navbar-default {
+  background-color: lightblue;
+  border-color: darkblue;
+}
+
+body {
+  font-size: 16px;
+}
+
+.logout {
+  color: white;
+  background: darkblue;
+}
+
+// button :hover {
+//  color: lightblue;
+// }

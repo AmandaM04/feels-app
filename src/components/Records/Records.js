@@ -55,7 +55,7 @@ class Records extends React.Component {
   getRecordsForSelectedChild = () => {
     const child = this.state.selectedChild;
     const recordCopy = [...this.state.records];
-    console.log('recordCopy:', recordCopy);
+    // console.log('recordCopy:', recordCopy);
     let newestRecord = '';
     if (recordCopy.length === 0) {
       newestRecord = {};
@@ -65,9 +65,26 @@ class Records extends React.Component {
       });
       newestRecord = childRecords[childRecords.length - 1];
     }
-    console.log('newestRecord:', newestRecord);
+    // console.log('newestRecord:', newestRecord);
     this.setState({ childsLatestRecord: newestRecord });
   };
+
+  // getRecordsForSelectedChild = () => {
+  //   const child = this.state.selectedChild;
+  //   const recordCopy = [...this.state.records];
+  //   // console.log('recordCopy:', recordCopy);
+  //   let newestRecord = '';
+  //   if (recordCopy.length === 0) {
+  //     newestRecord = {};
+  //   } else {
+  //     const childRecords = recordCopy.filter((record) => {
+  //       return record.name === child;
+  //     });
+  //     newestRecord = childRecords[childRecords.length - 1];
+  //   }
+  //   // console.log('newestRecord:', newestRecord);
+  //   this.setState({ childsLatestRecord: newestRecord });
+  // };
 
   componentDidMount () {
     userRequests
@@ -112,14 +129,16 @@ class Records extends React.Component {
     return (
       <div className="records">
         <div className="introParent">
-          <h4>Welcome {user.name}</h4>
+          <h4><strong>Welcome {user.name}</strong></h4>
           {childSelector()}
           {this.state.selectedChild !== '' ? (
             <div>
               <div>
-                <button onClick={this.toggleHiddenForm}>Add New Record</button>
+                <button onClick={this.toggleHiddenForm} className="newRecord">Add New Record</button>
               </div>
-              {!this.state.isHiddenForm ? NewRecordsForm() : ''}
+              <div className="recordForm">
+                {!this.state.isHiddenForm ? NewRecordsForm() : ''}
+              </div>
             </div>
           ) : ''}
         </div>
@@ -129,15 +148,15 @@ class Records extends React.Component {
               <h4>Records for: {childsLatestRecord.name}</h4>
             </div>
             <div className="col-xs-8 col-xs-offset-2">
-              <h3 class="text-center">Temperature</h3>
+              <h3 className="text-center">Temperature</h3>
               <div className="tempHolder">
-                <p>{childsLatestRecord.temperature} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
+                <p>{childsLatestRecord.temperature}<span className="degree">&deg;F</span> @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
-              <h3 class="text-center">Medications</h3>
+              <h3 className="text-center">Medications</h3>
               <div className="medHolder">
                 <p>{childsLatestRecord.medications} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
-              <h3 class="text-center">Symptoms</h3>
+              <h3 className="text-center">Symptoms</h3>
               <div className="sympHolder">
                 <p>{childsLatestRecord.symptoms} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
