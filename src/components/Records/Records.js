@@ -69,6 +69,23 @@ class Records extends React.Component {
     this.setState({ childsLatestRecord: newestRecord });
   };
 
+  // getRecordsForSelectedChild = () => {
+  //   const child = this.state.selectedChild;
+  //   const recordCopy = [...this.state.records];
+  //   // console.log('recordCopy:', recordCopy);
+  //   let newestRecord = '';
+  //   if (recordCopy.length === 0) {
+  //     newestRecord = {};
+  //   } else {
+  //     const childRecords = recordCopy.filter((record) => {
+  //       return record.name === child;
+  //     });
+  //     newestRecord = childRecords[childRecords.length - 1];
+  //   }
+  //   // console.log('newestRecord:', newestRecord);
+  //   this.setState({ childsLatestRecord: newestRecord });
+  // };
+
   componentDidMount () {
     userRequests
       .getUsers(authRequest.getUid())
@@ -112,14 +129,16 @@ class Records extends React.Component {
     return (
       <div className="records">
         <div className="introParent">
-          <h4>Welcome {user.name}</h4>
+          <h4><strong>Welcome {user.name}</strong></h4>
           {childSelector()}
           {this.state.selectedChild !== '' ? (
             <div>
               <div>
-                <button onClick={this.toggleHiddenForm}>Add New Record</button>
+                <button onClick={this.toggleHiddenForm} className="newRecord">Add New Record</button>
               </div>
-              {!this.state.isHiddenForm ? NewRecordsForm() : ''}
+              <div className="recordForm">
+                {!this.state.isHiddenForm ? NewRecordsForm() : ''}
+              </div>
             </div>
           ) : ''}
         </div>
