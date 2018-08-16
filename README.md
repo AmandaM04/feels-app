@@ -51,7 +51,6 @@ Created as a Front-end Capstone project while attending Nashville Software Schoo
 <img src="" width="400">
 
 ### How to run:
-```
 1. Clone repo
 2. Run npm install to install dependencies
 3. Run npm start to host locally
