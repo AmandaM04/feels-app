@@ -116,14 +116,14 @@ class Profile extends React.Component {
 
     const UpdateParentName = () => (
       <div className="parentUpdateField" >
-        <input type="text" onChange={this.handleInputChange} />
+        <input type="text" id="userInput" onChange={this.handleInputChange} />
         <button onClick={this.updateUser}>Save</button>
       </div>
     );
 
     const AddNewChildName = () => (
       <div className="newChildField" >
-        <input type="text" onChange={this.handleInputChange} />
+        <input type="text" id="childInput" onChange={this.handleInputChange} />
         <button onClick={this.addChild}>Save</button>
       </div>
     );
