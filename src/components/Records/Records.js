@@ -69,23 +69,6 @@ class Records extends React.Component {
     this.setState({ childsLatestRecord: newestRecord });
   };
 
-  // getRecordsForSelectedChild = () => {
-  //   const child = this.state.selectedChild;
-  //   const recordCopy = [...this.state.records];
-  //   // console.log('recordCopy:', recordCopy);
-  //   let newestRecord = '';
-  //   if (recordCopy.length === 0) {
-  //     newestRecord = {};
-  //   } else {
-  //     const childRecords = recordCopy.filter((record) => {
-  //       return record.name === child;
-  //     });
-  //     newestRecord = childRecords[childRecords.length - 1];
-  //   }
-  //   // console.log('newestRecord:', newestRecord);
-  //   this.setState({ childsLatestRecord: newestRecord });
-  // };
-
   componentDidMount () {
     userRequests
       .getUsers(authRequest.getUid())
@@ -139,15 +122,16 @@ class Records extends React.Component {
               <div className="recordForm">
                 {!this.state.isHiddenForm ? NewRecordsForm() : ''}
               </div>
+              <br></br>
             </div>
           ) : ''}
         </div>
         {(this.state.selectedChild !== '' && childsLatestRecord !== undefined) ?
           (<div>
-            <div className="introChild">
-              <h4>Records for: {childsLatestRecord.name}</h4>
-            </div>
             <div className="col-xs-8 col-xs-offset-2">
+              <div className="introChild">
+                <div>Records for: <strong>{childsLatestRecord.name}</strong></div>
+              </div>
               <h3 className="text-center">Temperature</h3>
               <div className="tempHolder">
                 <p>{childsLatestRecord.temperature}<span className="degree">&deg;F</span> @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
