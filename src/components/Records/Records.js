@@ -77,6 +77,16 @@ class Records extends React.Component {
     this.setState({ childsLatestRecord: newestRecord });
   };
 
+  // getBackInTimeRecords = () => {
+  // const child = this.state.selectedChild;
+  // const momentsRecord = [...this.state.records];
+  // let allRecords = '';
+  // const oldChildRecords = momentsRecord.map((record) => {
+  // return record.name === child;
+  // });
+  // allRecords = oldChildRecords
+  // };
+
   /* getting data for the user with their associated UID
    and setting state with only that particular user who's UID matches  */
   componentDidMount () {
@@ -96,7 +106,7 @@ class Records extends React.Component {
         recordsRequests
           .getRecords(authRequest.getUid())
           .then((records) => {
-            records.sort((a,b) => {
+            records.sort((a, b) => {
               return +new Date(a.dateTime) - +new Date(b.dateTime);
             });
             this.setState({ records: records });

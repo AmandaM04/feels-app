@@ -15,12 +15,14 @@ class RecordsForm extends React.Component {
     newRecord: defaultRecord,
   }
 
+  /* function to turn the value of the form field into a string */
   formFieldStringState = (name, e) => {
     const tempRecord = { ...this.state.newRecord };
     tempRecord[name] = e.target.value;
     this.setState({ newRecord: tempRecord });
   }
 
+  /* function to turn the value of the form field into a number */
   formFieldNumberState = (name, e) => {
     const tempRecord = { ...this.state.newRecord };
     tempRecord[name] = e.target.value * 1;
@@ -39,13 +41,15 @@ class RecordsForm extends React.Component {
     this.formFieldStringState('symptoms', e);
   }
 
+  /* prevent the default on form action
+  before onSubmit can be done, all fields must be completed according to the properties of the newRecord
+  alerts user to complete all fields before they can proceed */
   formSubmit = (e) => {
     e.preventDefault();
     const {onSubmit} = this.props;
     const {newRecord} = this.state;
     newRecord.uid = authRequest.getUid();
     newRecord.name = this.props.childName;
-    // console.error('newRecord:', newRecord);
     if (
       newRecord.temperature &&
       newRecord.medications &&
@@ -57,6 +61,10 @@ class RecordsForm extends React.Component {
     }
   }
 
+  /* sets state of the newRecord
+  creates a form with information being displayed under 3 headings.. Temperature, Medications, and Symptoms
+  changes the input value inside form field to a string or number
+  Submits or Save new record data */
   render () {
     const { newRecord } = this.state;
     return (
