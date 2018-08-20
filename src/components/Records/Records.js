@@ -20,12 +20,17 @@ class Records extends React.Component {
     isHiddenForm: true,
   }
 
+  /* shows or hides form to add new record for child or patient */
   toggleHiddenForm = () => {
     this.setState({
       isHiddenForm: !this.state.isHiddenForm,
     });
   }
 
+  /* saves new record with date and time information
+     post new record to firebase
+     gets new record for child with matching UID as parent
+     calls function for getting records for child selected */
   onSubmit = (record) => {
     record.dateTime = moment();
     recordsRequests
@@ -45,6 +50,8 @@ class Records extends React.Component {
       });
   }
 
+  /* allows you to select the child you are wanting to add a new record for
+     calls function for getting records for child selected */
   setSelectedChild = (e) => {
     const childName = e.target.innerHTML;
     this.setState({ selectedChild: childName }, () => {
@@ -52,10 +59,12 @@ class Records extends React.Component {
     });
   }
 
+  /* sets state for selected child
+     makes a copy of the records and set that state
+     returns the newest record */
   getRecordsForSelectedChild = () => {
     const child = this.state.selectedChild;
     const recordCopy = [...this.state.records];
-    // console.log('recordCopy:', recordCopy);
     let newestRecord = '';
     if (recordCopy.length === 0) {
       newestRecord = {};
@@ -65,20 +74,25 @@ class Records extends React.Component {
       });
       newestRecord = childRecords[childRecords.length - 1];
     }
-    // console.log('newestRecord:', newestRecord);
     this.setState({ childsLatestRecord: newestRecord });
   };
 
+  /* getting data for the user with their associated UID
+   and setting state with only that particular user who's UID matches  */
   componentDidMount () {
     userRequests
       .getUsers(authRequest.getUid())
       .then((user) => {
         this.setState({ user: user[0] });
+        /* getting data for the children who have the same UID as the user above
+   and setting state with only those children  */
         childrenRequests
           .getChildren(authRequest.getUid())
           .then((children) => {
             this.setState({ children: children });
           });
+        /* getting data for the records of the children of the parent user with matching UID
+        sorting data from newest to oldest  */
         recordsRequests
           .getRecords(authRequest.getUid())
           .then((records) => {
@@ -94,13 +108,17 @@ class Records extends React.Component {
   }
 
   render () {
+    /* setting the state of the user, childs latest record, and the children  */
     const { user, childsLatestRecord, children } = this.state;
+    /* creating a function that is displaying the child's name as a button, passing in the index of the child in order to only return information associated with the selected child   */
     const childSelector = () => {
       return children.map((child, index) => {
         return (<button className="chldSelectorButton" key={index} onClick={this.setSelectedChild}>{child.name}</button>);
       });
     };
 
+    /* displaying the form that allows the user to input a new record for their child or patient
+      brings in information from the RecordsForm component */
     const NewRecordsForm = () => (
       <div className="newRecordInput" >
         <RecordsForm
@@ -110,6 +128,10 @@ class Records extends React.Component {
       </div>
     );
     return (
+      /* displays the users name, shows all of the children or patients names as buttons
+         only shows the add new record button if the user has children on patients within their account
+         only shows the temperature, medications, and symptoms if the user has children and also has information that they have typed in to show
+         displays the temperatures, medications, and symptoms with a date and time stamp under the correct category */
       <div className="records">
         <div className="introParent">
           <h4><strong>Welcome {user.name}</strong></h4>
