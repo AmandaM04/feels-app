@@ -33,6 +33,7 @@ class Records extends React.Component {
      calls function for getting records for child selected */
   onSubmit = (record) => {
     record.dateTime = moment();
+    record.dateId = new Date().getTime();
     recordsRequests
       .postRecord(record)
       .then(() => {
@@ -62,34 +63,62 @@ class Records extends React.Component {
   /* sets state for selected child
      makes a copy of the records and set that state
      returns the newest record */
+  // getRecordsForSelectedChild = () => {
+  //   const child = this.state.selectedChild;
+  //   const recordCopy = [...this.state.records];
+  //   let newestRecord = '';
+  //   if (recordCopy.length === 0) {
+  //     newestRecord = {};
+  //   } else {
+  //     const childRecords = recordCopy.map((record) => {
+  //       return record.name === child;
+  //     });
+  //     newestRecord = childRecords[childRecords.length - 1];
+  //   }
+  //   this.setState({ childsLatestRecord: newestRecord });
+  // };
+
+  /* sets state for selected child
+       makes a copy of the records and set that state
+       returns the newest record */
   getRecordsForSelectedChild = () => {
     const child = this.state.selectedChild;
-    const recordCopy = [...this.state.records];
-    let newestRecord = '';
-    if (recordCopy.length === 0) {
-      newestRecord = {};
+    const momentsRecord = [...this.state.records];
+    let allRecords = '';
+    if (momentsRecord.length === 0) {
+      allRecords = {};
     } else {
-      const childRecords = recordCopy.filter((record) => {
-        return record.name === child;
+      allRecords = momentsRecord.map((record) => {
+        if (record.name === child) {
+          return (
+            <div className="col-xs-8 col-xs-offset-2">
+              <div className="introChild">
+                <div>Records for: <strong>{record.name}</strong></div>
+              </div>
+              <h3 className="text-center">Temperature</h3>
+              <div className="tempHolder">
+                <p>{record.temperature}<span className="degree">&deg;F</span> @ {moment(record.dateTime).format('LLL')}</p>
+              </div>
+              <h3 className="text-center">Medications</h3>
+              <div className="medHolder">
+                <p>{record.medications} @ {moment(record.dateTime).format('LLL')}</p>
+              </div>
+              <h3 className="text-center">Symptoms</h3>
+              <div className="sympHolder">
+                <p>{record.symptoms} @ {moment(record.dateTime).format('LLL')}</p>
+              </div>
+            </div>
+          );
+        };
       });
-      newestRecord = childRecords[childRecords.length - 1];
+      return allRecords;
     }
-    this.setState({ childsLatestRecord: newestRecord });
-  };
 
-  // getBackInTimeRecords = () => {
-  // const child = this.state.selectedChild;
-  // const momentsRecord = [...this.state.records];
-  // let allRecords = '';
-  // const oldChildRecords = momentsRecord.map((record) => {
-  // return record.name === child;
-  // });
-  // allRecords = oldChildRecords
-  // };
+  };
 
   /* getting data for the user with their associated UID
    and setting state with only that particular user who's UID matches  */
-  componentDidMount () {
+  componentDidMount() {
     userRequests
       .getUsers(authRequest.getUid())
       .then((user) => {
@@ -107,7 +136,7 @@ class Records extends React.Component {
           .getRecords(authRequest.getUid())
           .then((records) => {
             records.sort((a, b) => {
-              return +new Date(a.dateTime) - +new Date(b.dateTime);
+              return b.dateId - a.dateId;
             });
             this.setState({ records: records });
           });
@@ -117,7 +146,9 @@ class Records extends React.Component {
       }));
   }
 
-  render () {
+  render() {
+
+    const allChildsRecords = this.getRecordsForSelectedChild();
     /* setting the state of the user, childs latest record, and the children  */
     const { user, childsLatestRecord, children } = this.state;
     /* creating a function that is displaying the child's name as a button, passing in the index of the child in order to only return information associated with the selected child   */
@@ -160,7 +191,7 @@ class Records extends React.Component {
         </div>
         {(this.state.selectedChild !== '' && childsLatestRecord !== undefined) ?
           (<div>
-            <div className="col-xs-8 col-xs-offset-2">
+            {/* <div className="col-xs-8 col-xs-offset-2">
               <div className="introChild">
                 <div>Records for: <strong>{childsLatestRecord.name}</strong></div>
               </div>
@@ -176,7 +207,10 @@ class Records extends React.Component {
               <div className="sympHolder">
                 <p>{childsLatestRecord.symptoms} @ {moment(childsLatestRecord.dateTime).format('LLL')}</p>
               </div>
-            </div>
+            </div> */}
+
+            {allChildsRecords}
+
           </div>) : ''
         }
 
